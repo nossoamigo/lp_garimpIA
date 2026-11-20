@@ -4,99 +4,273 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>garimpIA | Achados de Ouro</title>
-<meta name="description" content="Só a nata das promoções da internet: sem spam, com desconto real verificado. Entre no Telegram ou no WhatsApp.">
+<meta name="description" content="Aqui a gente garimpa as promoções entre as promoções! Entre na comunidade do garimpIA no WhatsApp ou no Telegram.">
 <meta property="og:title" content="garimpIA | Achados de Ouro">
-<meta property="og:description" content="Só a nata das promoções da internet: sem spam, com desconto real verificado.">
+<meta property="og:description" content="Aqui a gente garimpa as promoções entre as promoções!">
 <meta property="og:type" content="website">
-<meta property="og:image" content="logo.png">
-<meta name="theme-color" content="#0f0d08">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9B%8F%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<meta property="og:image" content="img/compartilhar.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#050d14">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="preload" as="image" href="img/robo-lupa.webp">
 <style>
   :root {
-    --fundo: #0f0d08;
-    --cartao: #1a160d;
-    --borda: #3a2f14;
-    --ouro: #f2b632;
-    --ouro-escuro: #c98f0c;
-    --texto: #f5efe0;
-    --suave: #b9ad92;
-    --telegram: #229ed9;
+    --noite: #050d14;
+    --rocha: #0b1a26;
+    --vidro: rgba(9, 24, 36, .72);
+    --ciano: #38e8f0;
+    --ciano-suave: rgba(56, 232, 240, .35);
+    --ouro: #f7bd2e;
+    --ouro-claro: #ffe08a;
+    --laranja: #f0891c;
+    --texto: #eef6f8;
+    --suave: #9db4bd;
     --whatsapp: #25d366;
+    --telegram: #2aa8e6;
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     margin: 0;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px 16px;
-    background: radial-gradient(circle at 50% 0%, #2a2008 0%, var(--fundo) 60%);
+    background: var(--noite);
     color: var(--texto);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-family: "Trebuchet MS", "Segoe UI", system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
   }
-  main { width: 100%; max-width: 420px; text-align: center; }
-  .logo {
-    width: 110px; height: 110px; border-radius: 50%;
-    object-fit: cover; border: 3px solid var(--ouro);
-    box-shadow: 0 0 28px rgba(242, 182, 50, .35);
+
+  /* ---- a mina: fundo com a caverna, vinheta e partículas ---- */
+  .mina {
+    position: fixed; inset: 0; z-index: -2;
+    background: var(--noite) url("img/caverna.webp") center top / cover no-repeat;
+    filter: saturate(1.1);
   }
-  .logo-padrao {
-    width: 110px; height: 110px; border-radius: 50%;
-    border: 3px solid var(--ouro); background: var(--cartao);
-    display: inline-flex; align-items: center; justify-content: center; font-size: 52px;
-    box-shadow: 0 0 28px rgba(242, 182, 50, .35);
+  .mina::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 18%, rgba(5, 13, 20, .15) 0%, rgba(5, 13, 20, .78) 62%, var(--noite) 100%),
+      linear-gradient(180deg, rgba(5, 13, 20, .55), rgba(5, 13, 20, .92));
   }
-  h1 { margin: 18px 0 4px; font-size: 1.7rem; line-height: 1.2; }
-  h1 span { color: var(--ouro); }
-  .frase { margin: 0 0 26px; color: var(--suave); font-size: 1rem; line-height: 1.5; }
-  .botoes { display: grid; gap: 14px; }
+  .particulas { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+  .particulas span {
+    position: absolute; bottom: -40px; color: var(--ciano); font-weight: 800;
+    text-shadow: 0 0 12px var(--ciano); opacity: 0;
+    animation: subir linear infinite;
+  }
+  @keyframes subir {
+    0% { transform: translateY(0) rotate(-8deg); opacity: 0; }
+    12% { opacity: .75; }
+    100% { transform: translateY(-105vh) rotate(14deg); opacity: 0; }
+  }
+
+  main { width: 100%; max-width: 520px; margin: 0 auto; padding: 22px 18px 48px; text-align: center; }
+  section { margin-top: 44px; }
+
+  /* ---- topo ---- */
+  .marca { width: min(300px, 78%); filter: drop-shadow(0 4px 18px rgba(0, 0, 0, .65)); }
+  .selo {
+    display: inline-block; margin-top: 10px; padding: 5px 14px; border-radius: 99px;
+    border: 1px solid var(--ciano-suave); background: rgba(56, 232, 240, .08);
+    color: var(--ciano); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700;
+  }
+
+  /* ---- herói ---- */
+  .heroi { margin-top: 18px; position: relative; }
+  .palco { position: relative; width: min(330px, 86%); margin: 0 auto; }
+  .palco::before {
+    content: ""; position: absolute; inset: 8% -8% 0; border-radius: 50%;
+    background: radial-gradient(circle, rgba(56, 232, 240, .28), transparent 66%);
+    animation: pulsar 4s ease-in-out infinite;
+  }
+  .palco img { position: relative; width: 100%; filter: drop-shadow(0 14px 22px rgba(0, 0, 0, .6)); animation: flutuar 5s ease-in-out infinite; }
+  @keyframes flutuar { 50% { transform: translateY(-9px); } }
+  @keyframes pulsar { 50% { opacity: .55; transform: scale(1.06); } }
+  h1 { margin: 6px 0 10px; font-size: clamp(1.7rem, 7.4vw, 2.3rem); line-height: 1.12; font-weight: 900; text-shadow: 0 3px 18px rgba(0, 0, 0, .7); }
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(180deg, var(--ouro-claro), var(--ouro) 55%, var(--laranja));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 2px 8px rgba(247, 189, 46, .35));
+  }
+  .sub { margin: 0 auto; max-width: 380px; color: var(--suave); font-size: 1.02rem; }
+
+  /* ---- botões ---- */
+  .entrar { display: grid; gap: 14px; margin-top: 26px; }
   .botao {
-    display: flex; align-items: center; justify-content: center; gap: 12px;
-    padding: 17px 20px; border-radius: 14px;
-    color: #fff; font-size: 1.1rem; font-weight: 700; text-decoration: none;
-    transition: transform .12s ease, filter .12s ease;
+    position: relative; display: flex; align-items: center; gap: 14px; text-align: left;
+    padding: 16px 18px; border-radius: 18px; text-decoration: none; color: var(--texto);
+    background: var(--vidro); border: 2px solid var(--cor); backdrop-filter: blur(6px);
+    box-shadow: 0 0 0 0 var(--cor), 0 10px 26px rgba(0, 0, 0, .5);
+    transition: transform .15s ease, box-shadow .2s ease;
+    overflow: hidden;
   }
-  .botao:hover, .botao:focus-visible { transform: translateY(-2px); filter: brightness(1.1); }
-  .botao small { display: block; font-weight: 400; font-size: .8rem; opacity: .9; }
-  .botao svg { width: 28px; height: 28px; fill: currentColor; flex: none; }
-  .whatsapp { background: var(--whatsapp); color: #06310f; }
-  .telegram { background: var(--telegram); }
-  .texto-botao { text-align: left; }
-  .beneficios {
-    margin: 28px 0 0; padding: 18px; list-style: none; text-align: left;
-    background: var(--cartao); border: 1px solid var(--borda); border-radius: 14px;
-    font-size: .95rem; line-height: 1.6;
+  .botao::after {
+    content: ""; position: absolute; inset: 0; transform: translateX(-120%);
+    background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, .22) 50%, transparent 70%);
+    animation: brilho 4.5s ease-in-out infinite;
   }
-  .beneficios li + li { margin-top: 8px; }
-  .rodape { margin-top: 22px; color: var(--suave); font-size: .8rem; line-height: 1.5; }
+  @keyframes brilho { 0%, 55% { transform: translateX(-120%); } 85%, 100% { transform: translateX(120%); } }
+  .botao:hover, .botao:focus-visible { transform: translateY(-3px) scale(1.01); box-shadow: 0 0 26px -2px var(--cor), 0 14px 30px rgba(0, 0, 0, .55); outline: none; }
+  .botao.whatsapp { --cor: var(--whatsapp); }
+  .botao.telegram { --cor: var(--telegram); }
+  .icone { flex: none; width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center; background: var(--cor); }
+  .icone svg { width: 28px; height: 28px; fill: #fff; }
+  .whatsapp .icone svg { fill: #04310f; }
+  .botao b { display: block; font-size: 1.15rem; }
+  .botao small { display: block; color: var(--suave); font-size: .84rem; }
+  .seta { margin-left: auto; font-size: 1.5rem; color: var(--cor); font-weight: 900; }
+
+  /* ---- títulos de seção ---- */
+  h2 { margin: 0 0 6px; font-size: 1.4rem; font-weight: 900; }
+  h2 em { font-style: normal; color: var(--ouro); }
+  .lead { margin: 0 0 18px; color: var(--suave); font-size: .96rem; }
+
+  /* ---- como a gente garimpa ---- */
+  .passos { display: grid; gap: 12px; text-align: left; counter-reset: passo; }
+  .passo {
+    display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px;
+    background: var(--vidro); border: 1px solid rgba(56, 232, 240, .2); border-radius: 16px; backdrop-filter: blur(6px);
+  }
+  .passo .emoji { flex: none; width: 44px; height: 44px; display: grid; place-items: center; font-size: 1.5rem; border-radius: 12px; background: rgba(247, 189, 46, .14); border: 1px solid rgba(247, 189, 46, .35); }
+  .passo b { display: block; color: var(--ouro-claro); }
+  .passo span { color: var(--suave); font-size: .92rem; }
+
+  /* ---- baú de cupons ---- */
+  .bau {
+    display: grid; grid-template-columns: 1fr 150px; align-items: center; gap: 6px; text-align: left; padding: 8px 8px 8px 20px;
+    background: linear-gradient(135deg, rgba(247, 189, 46, .14), rgba(56, 232, 240, .08)); border: 1px solid rgba(247, 189, 46, .4); border-radius: 20px;
+  }
+  .bau h2 { font-size: 1.2rem; }
+  .bau p { margin: 0; color: var(--suave); font-size: .92rem; }
+  .bau img { width: 100%; filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .55)); animation: flutuar 6s ease-in-out infinite; }
+
+  /* ---- em breve ---- */
+  .galerias { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; text-align: left; }
+  .galerias li {
+    display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 14px;
+    background: rgba(9, 24, 36, .55); border: 1px dashed rgba(157, 180, 189, .45);
+  }
+  .galerias .tema { font-weight: 700; }
+  .galerias .tema small { display: block; color: var(--suave); font-weight: 400; font-size: .8rem; }
+  .galerias .emoji { font-size: 1.5rem; }
+  .breve {
+    margin-left: auto; flex: none; padding: 4px 10px; border-radius: 99px; font-size: .7rem; letter-spacing: .08em; font-weight: 800; text-transform: uppercase;
+    color: #2a1a00; background: linear-gradient(180deg, var(--ouro-claro), var(--ouro));
+  }
+  .galerias li.mais { justify-content: center; border-style: solid; border-color: var(--ciano-suave); color: var(--ciano); font-weight: 800; }
+  .minerador { display: block; width: 150px; margin: 22px auto 0; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .6)); }
+
+  /* ---- rodapé ---- */
+  footer { margin-top: 38px; color: var(--suave); font-size: .82rem; }
+  footer img { width: 92px; display: block; margin: 0 auto 8px; }
+  footer p { margin: 6px 0; }
+
+  /* ---- aparecer ao rolar ---- */
+  .surge { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+  .surge.visivel { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::after { animation: none !important; transition: none !important; }
+    .surge { opacity: 1; transform: none; }
+    .particulas { display: none; }
+  }
+  @media (max-width: 360px) { .bau { grid-template-columns: 1fr; text-align: center; } .bau img { width: 120px; margin: 0 auto; } }
 </style>
 </head>
 <body>
-<main>
-  <img class="logo" src="logo.png" alt="Logo do garimpIA"
-       onerror="this.outerHTML='<div class=&quot;logo-padrao&quot;>⛏️</div>'">
-  <h1>⛏️ garimpIA <span>| Achados de Ouro</span></h1>
-  <p class="frase">Só a nata das promoções da internet, sem spam e com desconto real verificado.</p>
+<div class="mina" aria-hidden="true"></div>
+<div class="particulas" aria-hidden="true" id="particulas"></div>
 
-  <div class="botoes">
-    <a class="botao whatsapp" href="https://chat.whatsapp.com/Ir4phDzJoYo1tZNtdQzHzU" rel="noopener">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-1.9.9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.2 1.4 2.5 1.5.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4Z"/></svg>
-      <span class="texto-botao">Entrar no WhatsApp<small>Comunidade com as ofertas do dia</small></span>
-    </a>
-    <a class="botao telegram" href="https://t.me/garimpiapromos" rel="noopener">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.9 4.3 18.7 19.6c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L6.1 13.1 1.2 11.6c-1.1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.6.2 1.4 1.6Z"/></svg>
-      <span class="texto-botao">Entrar no Telegram<small>Ofertas, cupons e avisos por tópico</small></span>
-    </a>
+<main>
+  <header>
+    <img class="marca" src="img/marca.webp" alt="garimpIA" width="300" height="92">
+    <div><span class="selo">⛏️ Achados de Ouro</span></div>
+  </header>
+
+  <div class="heroi">
+    <div class="palco"><img src="img/robo-lupa.webp" alt="Robô garimpeiro do garimpIA, de capacete e picareta, com uma lupa brilhante" width="330" height="357"></div>
+    <h1>Aqui a gente <em>garimpa</em> as promoções entre as promoções!</h1>
+    <p class="sub">Entra na comunidade: a gente desce na mina da internet e traz só o ouro, direto no seu celular.</p>
+
+    <div class="entrar">
+      <a class="botao whatsapp" href="https://chat.whatsapp.com/Ir4phDzJoYo1tZNtdQzHzU" rel="noopener">
+        <span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-1.9.9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.2 1.4 2.5 1.5.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.8-.1 1.4Z"/></svg></span>
+        <span><b>Entrar no WhatsApp</b><small>Ofertas do dia, cupons e avisos</small></span>
+        <span class="seta" aria-hidden="true">›</span>
+      </a>
+      <a class="botao telegram" href="https://t.me/garimpiapromos" rel="noopener">
+        <span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.9 4.3 18.7 19.6c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L6.1 13.1 1.2 11.6c-1.1-.3-1.1-1 .2-1.5L20.5 2.7c.9-.3 1.6.2 1.4 1.6Z"/></svg></span>
+        <span><b>Entrar no Telegram</b><small>Tudo organizado em tópicos</small></span>
+        <span class="seta" aria-hidden="true">›</span>
+      </a>
+    </div>
   </div>
 
-  <ul class="beneficios">
-    <li>🔥 Ofertas selecionadas todos os dias</li>
-    <li>🎟️ Cupons de desconto para qualquer compra</li>
-    <li>📉 Preço conferido no histórico: só o que vale a pena</li>
-  </ul>
+  <section class="surge">
+    <h2>Como a gente <em>garimpa</em></h2>
+    <p class="lead">Muita promoção por aí é cascalho. Aqui só passa o que vale.</p>
+    <div class="passos">
+      <div class="passo"><span class="emoji">🔦</span><div><b>A gente procura</b><span>O garimpIA vasculha dezenas de fontes de promoção o dia todo.</span></div></div>
+      <div class="passo"><span class="emoji">⛏️</span><div><b>A gente peneira</b><span>Descarta o lixo e confere o preço no nosso histórico: desconto falso não passa.</span></div></div>
+      <div class="passo"><span class="emoji">💎</span><div><b>Só o ouro chega até você</b><span>Poucas ofertas por dia, já com o cupom incluso quando precisa.</span></div></div>
+    </div>
+  </section>
 
-  <p class="rodape">Alguns links são de afiliado: você paga o mesmo e ajuda a manter o projeto.<br>🔔 Ative as notificações para não perder ofertas relâmpago.</p>
+  <section class="surge">
+    <div class="bau">
+      <div>
+        <h2>🎟️ O baú de <em>cupons</em></h2>
+        <p>Listas de cupons para usar em qualquer compra, num grupo só para isso. Dentro da comunidade, é só tocar no nome do grupo.</p>
+      </div>
+      <img src="img/bau.webp" alt="Baú de tesouro cheio de cupons de desconto" width="150" height="167" loading="lazy">
+    </div>
+  </section>
+
+  <section class="surge">
+    <h2>Novas <em>galerias</em> da mina</h2>
+    <p class="lead">Grupos dedicados por assunto, para você receber só o que gosta.</p>
+    <ul class="galerias">
+      <li><span class="emoji">📱</span><span class="tema">Celulares e Tech<small>smartphones, fones, gadgets</small></span><span class="breve">Em breve</span></li>
+      <li><span class="emoji">💻</span><span class="tema">Informática<small>PC, periféricos, games</small></span><span class="breve">Em breve</span></li>
+      <li><span class="emoji">🏠</span><span class="tema">Achados de Casa<small>casa, cozinha, utilidades</small></span><span class="breve">Em breve</span></li>
+      <li class="mais">✨ E muito mais!</li>
+    </ul>
+    <img class="minerador" src="img/robo-picareta.webp" alt="Robô garimpeiro com a picareta no ombro" width="150" height="214" loading="lazy">
+  </section>
+
+  <footer class="surge">
+    <img src="img/logo-redondo.webp" alt="Emblema do garimpIA" width="92" height="91" loading="lazy">
+    <p>🔔 Ative as notificações para não perder as ofertas relâmpago.</p>
+    <p>Alguns links são de afiliado: você paga o mesmo e ajuda a manter o garimpo.</p>
+    <p>© garimpIA</p>
+  </footer>
 </main>
+
+<script>
+  // faíscas de desconto subindo pela mina
+  (function () {
+    var caixa = document.getElementById("particulas");
+    if (!caixa || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var sinais = ["%", "%", "%", "R$", "−"];
+    for (var i = 0; i < 14; i++) {
+      var s = document.createElement("span");
+      s.textContent = sinais[i % sinais.length];
+      s.style.left = Math.round(Math.random() * 96) + "%";
+      s.style.fontSize = (12 + Math.random() * 16).toFixed(0) + "px";
+      s.style.animationDuration = (9 + Math.random() * 9).toFixed(1) + "s";
+      s.style.animationDelay = (-Math.random() * 14).toFixed(1) + "s";
+      caixa.appendChild(s);
+    }
+  })();
+  // aparecer ao rolar
+  (function () {
+    var itens = document.querySelectorAll(".surge");
+    if (!("IntersectionObserver" in window)) { itens.forEach(function (e) { e.classList.add("visivel"); }); return; }
+    var obs = new IntersectionObserver(function (lista) {
+      lista.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("visivel"); obs.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    itens.forEach(function (e) { obs.observe(e); });
+  })();
+</script>
 </body>
 </html>
