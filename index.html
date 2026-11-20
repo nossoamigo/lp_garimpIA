@@ -67,7 +67,7 @@
   section { margin-top: 44px; }
 
   /* ---- topo ---- */
-  .marca { width: min(300px, 78%); filter: drop-shadow(0 4px 18px rgba(0, 0, 0, .65)); }
+  .marca { width: min(300px, 78%); height: auto; filter: drop-shadow(0 4px 18px rgba(0, 0, 0, .65)); }
   .selo {
     display: inline-block; margin-top: 10px; padding: 5px 14px; border-radius: 99px;
     border: 1px solid var(--ciano-suave); background: rgba(56, 232, 240, .08);
@@ -76,13 +76,13 @@
 
   /* ---- herói ---- */
   .heroi { margin-top: 18px; position: relative; }
-  .palco { position: relative; width: min(220px, 58%); margin: 0 auto; }
+  .palco { position: relative; width: min(180px, 48%); margin: 0 auto; }
   .palco::before {
     content: ""; position: absolute; inset: 8% -8% 0; border-radius: 50%;
     background: radial-gradient(circle, rgba(56, 232, 240, .28), transparent 66%);
     animation: pulsar 4s ease-in-out infinite;
   }
-  .palco img { position: relative; width: 100%; filter: drop-shadow(0 14px 22px rgba(0, 0, 0, .6)); animation: flutuar 5s ease-in-out infinite; }
+  .palco img { position: relative; width: 100%; height: auto; filter: drop-shadow(0 14px 22px rgba(0, 0, 0, .6)); animation: flutuar 5s ease-in-out infinite; }
   @keyframes flutuar { 50% { transform: translateY(-9px); } }
   @keyframes pulsar { 50% { opacity: .55; transform: scale(1.06); } }
   h1 { margin: 6px 0 10px; font-size: clamp(1.7rem, 7.4vw, 2.3rem); line-height: 1.12; font-weight: 900; text-shadow: 0 3px 18px rgba(0, 0, 0, .7); }
@@ -142,7 +142,7 @@
   }
   .bau h2 { font-size: 1.2rem; }
   .bau p { margin: 0; color: var(--suave); font-size: .92rem; }
-  .bau img { width: 100%; filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .55)); animation: flutuar 6s ease-in-out infinite; }
+  .bau img { width: 100%; height: auto; filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .55)); animation: flutuar 6s ease-in-out infinite; }
 
   /* ---- em breve ---- */
   .galerias { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; text-align: left; }
@@ -161,7 +161,7 @@
 
   /* ---- rodapé ---- */
   footer { margin-top: 38px; color: var(--suave); font-size: .82rem; }
-  footer img { width: 92px; display: block; margin: 0 auto 8px; }
+  footer img { width: 92px; height: auto; display: block; margin: 0 auto 8px; }
   footer p { margin: 6px 0; }
 
   /* ---- aparecer ao rolar ---- */
